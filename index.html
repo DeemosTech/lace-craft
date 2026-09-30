@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LACE–CRAFT: Robot Co-Design with Actor Inheritance and Blackboard Collaboration. Research overview, interactive results, and a narrated demonstration.">
+  <meta name="theme-color" content="#183b41">
+  <meta property="og:title" content="LACE–CRAFT | Robot Co-Design">
+  <meta property="og:description" content="Actor inheritance and blackboard collaboration for robot morphology–reward co-design.">
+  <meta property="og:type" content="website">
+  <title>LACE–CRAFT · Robot Co-Design</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="LACE–CRAFT home"><span class="brand-icon" aria-hidden="true">L<span>C</span></span>LACE–CRAFT</a>
+    <nav aria-label="Main navigation"><a href="#method">Method</a><a href="#results">Results</a><a href="#hardware">Hardware</a><a class="nav-demo" href="#demo">Watch demo <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero section-width" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="tiny-line"></span> Robot morphology × learned control</p>
+        <h1 id="hero-title">LACE<span class="title-dash">–</span>CRAFT</h1>
+        <p class="paper-title">Robot Co-Design with Actor Inheritance and Blackboard Collaboration</p>
+        <p class="hero-summary">Continue learning on the current robot.<br>Adapt what it has learned to new designs.</p>
+        <div class="hero-actions"><a class="button primary" href="#demo"><span aria-hidden="true">▶</span> Watch the demonstration</a><a class="text-link" href="#method">Explore the method <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <div class="hero-visual">
+        <div class="media-heading"><span class="status-dot"></span> Hardware-adapted prototype <span class="speed">8× playback</span></div>
+        <div class="hero-media">
+          <img class="hero-poster" src="assets/walking-poster.jpg" width="1280" height="720" alt="The hardware-adapted robot walking indoors with its arm removed" fetchpriority="high">
+          <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/walking-poster.jpg" aria-label="Indoor walking of the hardware-adapted robot, with the arm removed, at eight times speed"><source data-src="assets/walking-8x.mp4" type="video/mp4"></video>
+        </div>
+        <button class="motion-control" id="motion-toggle" type="button" aria-pressed="false">Play preview</button>
+        <div class="visual-caption"><span>Generated geometry. Physical motion.</span><span>12 leg joints</span></div>
+      </div>
+      <div class="authors-block">
+        <p class="authors">Yuhan Wen<sup>1,2</sup> <span>·</span> Jiawei Wang<sup>1,3</sup> <span>·</span> Qixuan Zhang<sup>1,2</sup> <span>·</span> Yusen Qin<sup>4</sup> <span>·</span> Lan Xu<sup>1,2,*</sup></p>
+        <p class="affiliations"><span><sup>1</sup> Deemos Corporation</span><span><sup>2</sup> ShanghaiTech University</span><span><sup>3</sup> University of Cambridge</span><span><sup>4</sup> D-Robotics</span></p>
+        <p class="correspondence">* Corresponding author: <a href="mailto:xulan1@shanghaitech.edu.cn">Lan Xu</a></p>
+      </div>
+    </section>
+
+    <section class="overview section-width" aria-labelledby="overview-title">
+      <p class="eyebrow">The idea</p>
+      <div class="split-heading"><h2 id="overview-title">A new body need not<br>start from scratch.</h2><p>Robot co-design changes both the body and its training reward. LACE–CRAFT preserves useful control experience while testing those changes: LACE trains and selects candidates; CRAFT proposes and cross-reviews morphology–reward pairs.</p></div>
+      <div class="principles"><div><span class="principle-number">01</span><h3>Reuse learned control</h3><p>Continue from the full training state, or copy actor parameters and observation statistics into a new design.</p></div><div><span class="principle-number">02</span><h3>Review body and reward together</h3><p>Four specialist roles share experimental records, develop proposals, and cross-review their interaction.</p></div><div><span class="principle-number">03</span><h3>Select, record, repeat</h3><p>Compare trained candidates with the retained incumbent using a fixed task metric, then update the shared record.</p></div></div>
+    </section>
+
+    <section class="method-section" id="method" aria-labelledby="method-title">
+      <div class="section-width">
+        <div class="section-header"><div><p class="eyebrow">Inside the framework</p><h2 id="method-title">Two training routes.<br>One shared design process.</h2></div><span class="section-index">01 / METHOD</span></div>
+        <figure class="framework-figure"><button class="figure-button" data-zoom="assets/framework.png" data-title="The LACE–CRAFT framework" aria-label="Enlarge the LACE–CRAFT framework figure"><img src="assets/framework.png" width="2400" height="1020" loading="lazy" alt="LACE continues the current policy and adapts it to proposed body–reward pairs. CRAFT's Feedback, Morphology, Reward and Integration roles work through a shared blackboard. Candidates are evaluated, selected and recorded for the next round."><span class="zoom-hint">View full figure <span aria-hidden="true">↗</span></span></button></figure>
+        <div class="method-tabs" role="tablist" aria-label="Framework components"><button id="lace-tab" role="tab" aria-selected="true" aria-controls="lace-panel" tabindex="0">LACE <span>Learn, compare, retain</span></button><button id="craft-tab" role="tab" aria-selected="false" aria-controls="craft-panel" tabindex="-1">CRAFT <span>Propose, cross-review, pair</span></button></div>
+        <div class="method-panel" id="lace-panel" role="tabpanel" aria-labelledby="lace-tab"><div><h3>Carry experience into the next round.</h3><p>Both routes begin with the same best robot so far. Continuation restores the full learner state on the unchanged body and reward. New designs inherit actor parameters and observation statistics, with other learner components initialized anew.</p></div><ol class="compact-flow"><li><strong>Continue training</strong><span>Same body and reward · restored training state</span></li><li><strong>Adapt new designs</strong><span>Proposed bodies and rewards · inherited actor</span></li><li><strong>Compare candidates</strong><span>Equal additional training budget per branch · retained incumbent</span></li></ol></div>
+        <div class="method-panel" id="craft-panel" role="tabpanel" aria-labelledby="craft-tab" hidden><div><h3>Changes are reviewed across disciplines.</h3><p>Feedback interprets the current behavioral evidence. Morphology and Reward draft in parallel, then simultaneously cross-review each other's proposals. Integration constructs complete body–reward pairs for the next training round.</p></div><ol class="compact-flow"><li><strong>Feedback</strong><span>Diagnoses and suggested changes from experimental evidence</span></li><li><strong>Morphology ↔ Reward</strong><span>Parallel drafts and reciprocal cross-review</span></li><li><strong>Integration</strong><span>Six complete morphology–reward pairs</span></li></ol></div>
+      </div>
+    </section>
+
+    <section class="demo-section section-width" id="demo" aria-labelledby="demo-title">
+      <div class="section-header"><div><p class="eyebrow">See the process</p><h2 id="demo-title">From the first checkpoint<br>to the next robot.</h2></div><span class="section-index">02 / DEMONSTRATION</span></div>
+      <div class="demo-player"><video id="demo-video" controls playsinline preload="none" poster="assets/demo-poster.jpg"><source src="assets/demo-hd.mp4" type="video/mp4"><track kind="captions" src="assets/captions-en.vtt" srclang="en" label="English">Your browser does not support embedded video. <a href="assets/demo-hd.mp4">Download the demonstration.</a></video></div>
+      <div class="chapter-list" aria-label="Video chapters"><button data-time="0"><span>00:00</span>Introduction</button><button data-time="5"><span>00:05</span>LACE–CRAFT</button><button data-time="81"><span>01:21</span>Experiments</button><button data-time="105"><span>01:45</span>Generative geometry</button><button data-time="156"><span>02:36</span>Physical robot</button></div>
+      <p class="media-note">Narrated demonstration · 2 min 44 sec · 1080p · Real-world walking shown at 8× speed <a href="assets/demo-hd.mp4" download>Download video ↓</a></p>
+    </section>
+
+    <section class="results-section" id="results" aria-labelledby="results-title"><div class="section-width">
+      <div class="section-header"><div><p class="eyebrow">Five locomotion tasks</p><h2 id="results-title">Evaluating the selected policies.</h2></div><span class="section-index">03 / RESULTS</span></div>
+      <div class="result-intro"><p>Across the five tasks, LACE–CRAFT's mean task score is <strong>6.4–91.9% higher</strong> than the reproduced D2C baseline under the reported budgets.</p><p class="small-note">Each fixed policy is evaluated with three seeds and 128 episodes per seed. Both searches generate 30 new designs; LACE–CRAFT additionally runs four continuation training units.</p></div>
+      <div class="task-selectors" role="group" aria-label="Select a locomotion task"><button data-task="Ant" aria-pressed="true">Ant</button><button data-task="HalfCheetah" aria-pressed="false">HalfCheetah</button><button data-task="Hopper" aria-pressed="false">Hopper</button><button data-task="Swimmer" aria-pressed="false">Swimmer</button><button data-task="Walker2D" aria-pressed="false">Walker2D</button></div>
+      <div class="result-card"><div class="result-head"><h3 id="task-name">Ant</h3><span id="gain" class="gain"></span></div><div id="bars" class="result-bars" aria-live="polite"></div><p class="chart-caption">Task score · mean ± sample standard deviation across evaluation seeds</p></div>
+      <details class="full-results"><summary>All results and ablations <span aria-hidden="true">+</span></summary><div class="table-scroll"><table><caption>Final-policy evaluation scores</caption><thead><tr><th scope="col">Task</th><th scope="col">Default</th><th scope="col">D2C</th><th scope="col">No Actor inheritance</th><th scope="col">No replay evidence</th><th scope="col">LACE–CRAFT</th></tr></thead><tbody id="result-table"></tbody></table></div><p class="small-note">D2C's final selected morphology–reward pair is retrained once before these evaluations. Evaluation-seed variability is distinct from variability across independent training runs or complete searches.</p></details>
+    </div></section>
+
+    <section class="hardware-section section-width" id="hardware" aria-labelledby="hardware-title">
+      <div class="section-header"><div><p class="eyebrow">Beyond parameterized bodies</p><h2 id="hardware-title">From shape reference<br>to an articulated robot.</h2></div><span class="section-index">04 / HARDWARE</span></div>
+      <p class="section-lead">Generated meshes become editable links, configured joints, motor interfaces, and simulation assets. Hardware adaptation turns the geometry into printable parts and a walking prototype.</p>
+      <figure class="geometry-figure"><button class="figure-button" data-zoom="assets/generative.png" data-title="Generative geometry and editable morphology" aria-label="Enlarge the generative geometry figure"><img src="assets/generative.png" loading="lazy" alt="Reference shape to Rodin mesh, editable body and limbs, joint layout, motor interfaces and SO-101 mount, with CRAFT proposals and LACE training."><span class="zoom-hint">View full figure ↗</span></button></figure>
+      <div class="hardware-bottom"><div class="hardware-copy"><h3>Built, assembled,<br>and tested in motion.</h3><p>The assembled robot includes an SO-101 arm. Because of the current hardware constraints, the indoor walking demonstration uses the hardware-adapted 12-leg-joint robot with its arm removed.</p><p>The geometry-stage model and the hardware-adapted controller are described separately in the paper.</p><a class="text-link" href="#demo" data-time="147">See assembly and walking <span aria-hidden="true">↗</span></a></div><figure><button class="figure-button" data-zoom="assets/hardware.png" data-title="Hardware-adapted parts and assembly" aria-label="Enlarge hardware parts and assembly"><img src="assets/hardware.png" loading="lazy" alt="Hardware-adapted base link, motor case, knee connector, upper and lower legs, beside the assembled robot with its SO-101 arm."><span class="zoom-hint">View full figure ↗</span></button></figure></div>
+    </section>
+    <section class="closing"><div class="section-width"><p class="eyebrow">LACE–CRAFT</p><h2>Reuse control.<br>Revisit the design.</h2><p>Robot Co-Design with Actor Inheritance<br>and Blackboard Collaboration</p><a class="button primary" href="#demo">Watch the demonstration <span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer class="section-width"><span>LACE–CRAFT · 2026</span><a href="mailto:xulan1@shanghaitech.edu.cn">Contact the corresponding author</a><a href="#top">Back to top ↑</a></footer>
+  <dialog id="figure-dialog" aria-labelledby="figure-dialog-title"><div class="dialog-heading"><h2 id="figure-dialog-title">Figure</h2><button type="button" id="close-figure" aria-label="Close enlarged figure">Close ×</button></div><img id="expanded-figure" alt=""></dialog>
+</body>
+</html>

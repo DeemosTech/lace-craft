@@ -1,0 +1,117 @@
+WEBVTT
+
+1
+00:00:00.375 --> 00:00:04.875
+LACE–CRAFT reuses learned control to refine robot bodies and rewards.
+
+2
+00:00:05.560 --> 00:00:07.768
+Each round starts with the best robot so far.
+
+3
+00:00:08.840 --> 00:00:13.584
+The first route continues training, restoring the saved policy and optimizer state.
+
+4
+00:00:15.160 --> 00:00:20.920
+The second route adapts new designs. It copies the policy and initializes a fresh optimizer.
+
+5
+00:00:22.360 --> 00:00:26.528
+To propose the changes, CRAFT examines the replay and its recorded trajectory.
+
+6
+00:00:28.200 --> 00:00:30.776
+Feedback records where the robot loses balance.
+
+7
+00:00:32.760 --> 00:00:37.408
+Morphology and Reward use that feedback to develop body and reward changes together.
+
+8
+00:00:37.800 --> 00:00:40.792
+They cross-review the proposals and write the revisions on the blackboard.
+
+9
+00:00:43.400 --> 00:00:46.456
+Integration pairs the reviewed body and reward changes.
+
+10
+00:00:49.000 --> 00:00:52.400
+The resulting body and reward combinations become new candidates.
+
+11
+00:00:53.000 --> 00:00:56.840
+They join the continued robot and the best robot so far in the candidate pool.
+
+12
+00:00:57.960 --> 00:01:01.664
+The continued and new designs receive the same additional training budget.
+
+13
+00:01:03.000 --> 00:01:05.480
+The trained controller is tested in a new rollout.
+
+14
+00:01:07.800 --> 00:01:09.528
+LACE selects the best candidate.
+
+15
+00:01:10.600 --> 00:01:14.136
+The new replay and its full trajectory are saved for the next round.
+
+16
+00:01:21.200 --> 00:01:26.960
+Across five tasks, the selected policies score higher than D2C under the reported budgets.
+
+17
+00:01:27.160 --> 00:01:32.130
+Each fixed policy is evaluated with three seeds and one hundred twenty-eight episodes per seed.
+
+18
+00:01:33.200 --> 00:01:38.620
+Removing actor inheritance or replay evidence lowers the mean score on every task.
+
+19
+00:01:45.447 --> 00:01:50.619
+A reference image guides the body shape, and Rodin produces the initial mesh.
+
+20
+00:01:51.442 --> 00:01:57.499
+BANG separates the components. Scripts repair and align them into editable body and limb meshes.
+
+21
+00:01:57.705 --> 00:02:03.163
+Configured joint axes and limits define how the body and limbs articulate.
+
+22
+00:02:03.789 --> 00:02:11.108
+Motor cavities and mating surfaces provide the interfaces. The torso also carries a mount for the existing SO-101 arm.
+
+23
+00:02:13.632 --> 00:02:18.338
+The hardware-adapted robot trains walking with twelve leg joints and a fixed arm.
+
+24
+00:02:20.968 --> 00:02:26.140
+Hardware adaptation refits the torso, leg parts, and motor housings for printing.
+
+25
+00:02:27.142 --> 00:02:30.193
+The robot is assembled with an SO-101 arm.
+
+26
+00:02:30.632 --> 00:02:35.096
+Because of the current hardware constraints, walking is tested with the arm removed.
+
+27
+00:02:36.281 --> 00:02:37.757
+LACE reuses learned control.
+
+28
+00:02:38.081 --> 00:02:40.104
+CRAFT reviews body and reward changes.
+
+29
+00:02:40.427 --> 00:02:42.683
+The workflow extends to hardware prototyping.
