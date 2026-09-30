@@ -10,9 +10,9 @@ From this directory, run `node preview.cjs` and open `http://127.0.0.1:8766/`. T
 
 ## Deployment
 
-Repository: `wenyuhan2004/LACE-CRAFT`. GitHub Pages serves **main → /(root)**.
+Repository: `DeemosTech/lace-craft`. GitHub Pages serves **main → /(root)**.
 
-Website: `https://wenyuhan2004.github.io/LACE-CRAFT/`.
+Website: `https://deemostech.github.io/lace-craft/`.
 
 ## Authors and media
 
